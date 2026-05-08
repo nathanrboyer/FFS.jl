@@ -1,2 +1,6 @@
 [deps]
+FFS = "2ece0448-1788-465a-aec3-f947ab6c84dd"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[sources]
+FFS = {path = ".."}
