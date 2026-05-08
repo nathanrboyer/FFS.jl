@@ -9,5 +9,6 @@ Equations are organized into modules named by their source location in FFS-1.
 module FFS
 
 # Write your package code here.
+dummy_function(x) = x
 
 end
