@@ -1,1 +1,5 @@
-# FFS
+# FFS.jl
+
+A collection of equations from The American Society of Mechanical Engineers (ASME) Fitness for Service standard FFS-1.
+This package is intended to be used as a dependency of other data processing packages.
+Equations are organized into modules named by their source location in FFS-1.
