@@ -1,0 +1,7 @@
+name = "FFS"
+uuid = "2ece0448-1788-465a-aec3-f947ab6c84dd"
+authors = ["Nathan Boyer <nathanrobertboyer@gmail.com>"]
+version = "0.0.1"
+
+[compat]
+julia = "1.12"
