@@ -7,7 +7,12 @@ Equations are organized into modules named by their source location in FFS-1.
 """
 module FFS
 
-# Write your package code here.
-dummy_function(x) = x
+include("table_import.jl")
+include("Part9_eq.jl")
+include("bore_eq.jl")
+include("thread_eq.jl")
+include("plate_eq.jl")
+
+
 
 end
