@@ -14,6 +14,7 @@ include("bore_eq.jl")
 include("thread_eq.jl")
 include("plate_eq.jl")
 
-
+import .Part9, .KCSCLE3, .RCSCLE3,
+ .RCSCCE1, .KCSCCL3, .RCSCCL3, .KPTC, .RPTC
 
 end
