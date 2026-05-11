@@ -1,13 +1,14 @@
 name = "FFS"
 uuid = "2ece0448-1788-465a-aec3-f947ab6c84dd"
-authors = [
-    "Nathan Boyer <nathanrobertboyer@gmail.com>",
-    "Maxwell Frame <mframe@aiphip.com>",
-]
 version = "0.0.1"
-
-[compat]
-julia = "1.12"
+authors = ["Nathan Boyer <nathanrobertboyer@gmail.com>", "Maxwell Frame <mframe@aiphip.com>"]
 
 [workspace]
 projects = ["test"]
+
+[deps]
+Interpolations = "a98d9a8b-a2ab-59e6-89dd-64a1c18fca59"
+
+[compat]
+Interpolations = "0.16.2"
+julia = "1.12"

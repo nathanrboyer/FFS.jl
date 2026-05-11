@@ -119,7 +119,7 @@ export read_fracture_stress
 # ------------------------------------------------------------
 # Utility: clamp extrapolation to table bounds
 # ------------------------------------------------------------
-const CLAMP = Flat()
+const CLAMP = Interpolations.Flat()
 
 # ------------------------------------------------------------
 # Load 2D plasticity table (LPr vs X)
@@ -150,7 +150,7 @@ function load_table_9_3()
 
     # Build interpolator (clamped)
     itp = interpolate((LPr, X), values, Gridded(Linear()))
-    ext = extrapolate(itp, Flat())
+    ext = extrapolate(itp, CLAMP)
     return ext
 end
 export load_table_9_3

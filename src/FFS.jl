@@ -6,6 +6,7 @@ This package is intended to be used as a dependency of other data processing pac
 Equations are organized into modules named by their source location in FFS-1.
 """
 module FFS
+using Interpolations
 
 include("table_import.jl")
 include("Part9_eq.jl")
