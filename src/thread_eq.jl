@@ -1,3 +1,55 @@
+module RCSCCE1
+
+"""9C.5.8 equation(9C.87) reference stress"""
+σref(Pb, U, Z, Pmeq, α) = (Pb + (Pb ^ 2 + 9 * (U * Z * Pmeq * (1 - α) ^ 2) ^ 2) ^ 0.5) /
+(3 * (1 - α) ^ 2)
+
+"""equation(9C.88) longitudinal membrane stress"""
+σml(p, Ri, Ro, F, Pm) = (p * Ri ^ 2) / (Ro ^ 2 - Ri ^ 2) + F /
+(π * (Ro ^ 2 - Ri ^ 2)) + Pm
+
+"""equation(9C.89) circumferential membrane stress"""
+σmc(p, Ri, t) = (p * Ri ^ 2) / t 
+
+"""equation(9C.90) primary membrane stress component based on equivalent stress"""
+Pmeq(σmc, σml) = (((σmc - σml) ^ 2 + σmc ^ 2 + σml ^ 2) / 2) ^ 0.5
+
+"""equation(9C.91) reference stress parameter"""
+Z(ψ, x, θ, τ) = ((2 * ψ) / π - (x * θ) / π * ((2 - 2 * τ + x * τ) / (2 - τ))) ^ -1
+
+"""equation(9C.92) reference stress parameter"""
+ψ(A, θ) = acos(A * sin(θ))
+
+"""equation(9C.93) reference stress parameter"""
+α(a, t, c) = (a / t) / (1 + t / c)
+
+"""equation(9C.94) cross-sectional area of the flaw"""
+A(x, τ) = x * (((1 - τ) * (2 - 2 * τ + x * τ) + (1 - τ + x * τ)^ 2) /
+(2 * (1 + (2 - τ) * (1 - τ))))
+
+"""equation(9C.95) reference stress parameter"""
+τ(t, Ro) = t / Ro
+
+"""equation(9C.96) radial local coordinate originating at the internal 
+surface of the component or a reference stress parameter"""
+x(a, t) = a / t
+
+"""equation(9C.97) half-angle of the crack, for an internal crack"""
+θ_in(c, Ri) = (π * c) / (4 * Ri)
+
+"""equation(9C.98) half-angle of the crack, for an external crack"""
+θ_ex(c, Ro) = (π * c) / (4 * Ro)
+
+"""equation(9C.99) reference stress parameter for circumferential cracks
+to account for pressure loading"""
+U_2_20(a_t, Ri_t) = 1.3068 - 0.495 * a_t + (0.055 * a_t - 0.026) * Ri_t
+
+"""equation(9C.100) reference stress parameter for circumferential cracks
+to account for pressure loading"""
+U_1(a_t) = 1.601 - 0.55 * a_t
+
+end #end module RCSCCE1
+
 module KCSCCL3 #Stress Intensity
 #Cylinder, Surface Crack, Circumferential Direction, 360⁰
 #Through-Wall Arbitrary Stress Distribution
