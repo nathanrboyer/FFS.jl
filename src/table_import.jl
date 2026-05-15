@@ -26,7 +26,7 @@ function load_ffs_tables()
         x2=:a_t,
         values=[
          :G0_in, :G1_in, :G2_in, :G3_in, :G4_in,
-         :G0_ex, :G1_ex, :G2_ex, :G3_ex, :G4_ex,
+         :G0_out, :G1_out, :G2_out, :G3_out, :G4_out,
          ]
     )
     #interp_G_thread = interp_2d(gTable_9B_11[:G4_ex], 3, 0.7)
