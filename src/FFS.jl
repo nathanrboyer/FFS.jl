@@ -6,7 +6,7 @@ This package is intended to be used as a dependency of other data processing pac
 Equations are organized into modules named by their source location in FFS-1.
 """
 module FFS
-export Part9, KCSCLE3, RCSCLE3, RCSCCE1, KCSCCL3, RCSCCL3, KPTC, RPTC
+export Part9, RCSCLE3, RCSCCE1, RCSCCL3, WFMFSC, KPTC, RPTC
 
 using Interpolations, XLSX, DataFrames, CSV
 
@@ -15,5 +15,6 @@ include("Part9_eq.jl")
 include("bore_eq.jl")
 include("thread_eq.jl")
 include("plate_eq.jl")
+include("weighted_f_eq.jl")
 
 end

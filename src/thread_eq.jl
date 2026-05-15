@@ -50,11 +50,6 @@ U_1(a_t) = 1.601 - 0.55 * a_t
 
 end #end module RCSCCE1
 
-module KCSCCL3 #Stress Intensity
-#Cylinder, Surface Crack, Circumferential Direction, 360⁰
-#Through-Wall Arbitrary Stress Distribution
-
-end #end module KCSCCL3
 
 module RCSCCL3  #Reference Stress
 #Cylinder, Surface Crack, Circumferential Direction, 360⁰
