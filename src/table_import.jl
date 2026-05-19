@@ -1,7 +1,3 @@
-#= using XLSX
-using DataFrames
-using Interpolations =#
-
 """Load FFS-1 2021 tables for fracture calculations"""
 function load_ffs_tables()
         
@@ -61,12 +57,21 @@ function load_ffs_tables()
     )
     #interp_G_thread2 = gTable_9B_13[:G1_A6](0.2, 1, 0)
 
+    # Table 9B.2 – Influence Coefficients for an Infinite Length Surface Crack in a Plate (1)
+    G_9B_2 = load_table_1d(
+        raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+        sheet = "Table 9B.2",
+        x = :a_t,
+        values = [:G0, :G1, :G2, :G3, :G4]
+    )
+
     return (
         ξ = xi_9_3,
         Fref = Fref_9C_3,
         G11 = G_9B_11, 
         G12 = G_9B_12,
-        G13 = G_9B_13
+        G13 = G_9B_13,
+        G2 = G_9B_2
     )
 end
 export load_ffs_tables
@@ -244,3 +249,29 @@ function interp_3d_coeffs(itps::Dict, x, y, z)
     return Dict(k => itps[k](x, y, z) for k in keys(itps))
 end
 export interp_3d_coeffs
+
+# ------------------------------------------------------------
+# Load 1D table (e.g. a/t → G0…G4)
+# ------------------------------------------------------------
+function load_table_1d(
+    filename::String;
+    sheet::Union{String,Int}=1,
+    x::Symbol,
+    values::Vector{Symbol}
+)
+    df = DataFrame(XLSX.readtable(filename, sheet))
+
+    xv = sort(unique(df[:, x]))
+
+    result = Dict{Symbol, Any}()
+
+    for val in values
+        yv = [df[df[:, x] .== xi, val][1] for xi in xv]
+
+        itp = interpolate((xv,), yv, Gridded(Linear()))
+        result[val] = extrapolate(itp, CLAMP)
+    end
+
+    return result
+end
+export load_table_1d

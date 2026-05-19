@@ -8,7 +8,7 @@ module RPTC
 
 end #end module RPTC
 
-module KPSCE3
+module KPSCE3 #Semi-Ellipitical Plate Crack - Arbitrary Stress
 
 """equation (9B.49), weight equation at φ=π/2 or infinitely long crack"""
 h90(x, a, M1, M2, M3) = (
@@ -92,7 +92,16 @@ F1(γ, a, c, δ) = γ * (a / c) ^ δ
 """equation (9B.70), weight function coefficient at φ=0"""
 δ(a, t) = 0.448863 -0.173295 * (a / t) -0.267775 * (a / t) ^ 2
 
+"""equation (9B.19) finite width correction factor"""
+fw(c, W, a, t) = (sec((π * c / (2 * W)) * (a / t) ^ 0.5)) ^ 0.5
+
 end #end module KPSCE3
+
+module KPSCL2 #Infinite width surface crack, arbitrary stress
+
+
+
+end #end module KPSCL2
 
 module RPSCE #Elliptical
 """equation(9C.31) reference stress solution for Plate - Semi-Ellipitical - Pin Jointed"""
