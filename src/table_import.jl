@@ -58,12 +58,17 @@ function load_ffs_tables()
     #interp_G_thread2 = gTable_9B_13[:G1_A6](0.2, 1, 0)
 
     # Table 9B.2 – Influence Coefficients for an Infinite Length Surface Crack in a Plate (1)
-    G_9B_2 = load_table_1d(
+    G_9B_2_form1 = load_table_1d(
         raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
         sheet = "Table 9B.2",
         x = :a_t,
         values = [:G0, :G1, :G2, :G3, :G4]
     )
+
+    G_9B_2_form2 = load_table_9B_2_form2(
+    raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+    "Table 9B.2 Form 2"
+    )       
 
     return (
         ξ = xi_9_3,
@@ -71,7 +76,8 @@ function load_ffs_tables()
         G11 = G_9B_11, 
         G12 = G_9B_12,
         G13 = G_9B_13,
-        G2 = G_9B_2
+        G2_F1 = G_9B_2_form1,
+        G2_F2 = G_9B_2_form2
     )
 end
 export load_ffs_tables
@@ -275,3 +281,29 @@ function load_table_1d(
     return result
 end
 export load_table_1d
+
+# ------------------------------------------------------------
+# Load Table 9B.2 Form 2 from Excel (matrix of coefficients)
+# ------------------------------------------------------------
+function load_table_9B_2_form2(filename::String, sheet::Union{String,Int})
+    xf = XLSX.readxlsx(filename)
+    data = XLSX.getdata(xf[sheet])
+
+    # Column headers (C0–C4) from first row, skipping first column
+    col_labels = Symbol.(strip.(string.(data[1, 2:end])))
+
+    result = Dict{Symbol, NamedTuple}()
+
+    # Loop over rows (G0–G4)
+    for i in 2:size(data, 1)
+        row_label = Symbol(strip(string(data[i, 1])))  # G0, G1, …
+
+        values = Float64.(data[i, 2:end])
+
+        # Build NamedTuple: (C0=..., C1=..., ...)
+        result[row_label] = NamedTuple{col_labels}(Tuple(values))
+    end
+
+    return result
+end
+export load_table_9B_2_form2
