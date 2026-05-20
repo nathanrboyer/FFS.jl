@@ -60,7 +60,7 @@ function load_ffs_tables()
     # Table 9B.2 – Influence Coefficients for an Infinite Length Surface Crack in a Plate (1)
     G_9B_2_form1 = load_table_1d(
         raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
-        sheet = "Table 9B.2",
+        sheet = "Table 9B.2 Form 1",
         x = :a_t,
         values = [:G0, :G1, :G2, :G3, :G4]
     )
@@ -301,7 +301,7 @@ function load_table_9B_2_form2(filename::String, sheet::Union{String,Int})
         values = Float64.(data[i, 2:end])
 
         # Build NamedTuple: (C0=..., C1=..., ...)
-        result[row_label] = NamedTuple{col_labels}(Tuple(values))
+        result[row_label] = NamedTuple{Tuple(col_labels)}(Tuple(values))
     end
 
     return result
