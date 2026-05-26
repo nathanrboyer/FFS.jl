@@ -6,7 +6,7 @@ function load_ffs_tables()
 
     #coefficents for high t/Ri ratio for circumferential-radial cracks at threads
     Fref_9C_3 = load_table_2d(
-        raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+        raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx",
         sheet = "Table 9C.3 Fref",
         x1=:t_Ri,
         x2=:a_t,
@@ -16,7 +16,7 @@ function load_ffs_tables()
 
     #Influence Coefficients for a Circumferential 360° Surface Crack in a Cylindrical Shell
     G_9B_11 = load_table_2d(
-        raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+        raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx",
         sheet = "Table 9B.11",
         x1=:t_Ri,
         x2=:a_t,
@@ -30,7 +30,7 @@ function load_ffs_tables()
     #Influence Coefficients for a Longitudinal Semi-Elliptical Surface Crack in a Cylinder
     #Inside Surface
     G_9B_12 = load_table_3d_coeffs(
-        raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+        raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx",
         sheet = "Table 9B.12",
         x = :t_Ri,
         y = :a_c,
@@ -45,7 +45,7 @@ function load_ffs_tables()
     #Influence Coefficients for a Longitudinal Semi-Elliptical Surface Crack in a Cylinder
     #Outside Surface
     G_9B_13 = load_table_3d_coeffs(
-        raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+        raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx",
         sheet = "Table 9B.13",
         x = :t_Ri,
         y = :a_c,
@@ -59,14 +59,14 @@ function load_ffs_tables()
 
     # Table 9B.2 – Influence Coefficients for an Infinite Length Surface Crack in a Plate (1)
     G_9B_2_form1 = load_table_1d(
-        raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+        raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx",
         sheet = "Table 9B.2 Form 1",
         x = :a_t,
         values = [:G0, :G1, :G2, :G3, :G4]
     )
 
     G_9B_2_form2 = load_table_9B_2_form2(
-    raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx",
+    raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx",
     "Table 9B.2 Form 2"
     )       
 
@@ -139,7 +139,7 @@ const CLAMP = Interpolations.Flat()
 #   Header row   = X values
 # ------------------------------------------------------------
 function load_table_9_3()
-    filename = raw"P:\Users\Maxwell\Fracture_Calc development\FFS-1_2021_Tables.xlsx"
+    filename = raw"S:\AIP Engineering\BPV\FFS-1_2021_Tables.xlsx"
     sheetname = "Table 9.3 Plasticity"
     
     xf = XLSX.readxlsx(filename)
