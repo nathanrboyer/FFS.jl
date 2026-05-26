@@ -9,7 +9,7 @@ module RCSCCE1
 (π * (Ro ^ 2 - Ri ^ 2)) + Pm
 
 """equation(9C.89) circumferential membrane stress"""
-σmc(p, Ri, t) = (p * Ri ^ 2) / t 
+σmc(p, Ri, t) = (p * Ri) / t 
 
 """equation(9C.90) primary membrane stress component based on equivalent stress"""
 Pmeq(σmc, σml) = (((σmc - σml) ^ 2 + σmc ^ 2 + σml ^ 2) / 2) ^ 0.5
