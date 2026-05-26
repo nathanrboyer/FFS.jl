@@ -39,7 +39,7 @@ M3(Q, Y0, M1) = 2 * ((π / (2 * Q) ^ 0.5) * Y0 - M1 - 4)
 Y0(B0, B1, B2, a, t) = B0 + B1 * (a / t) ^ 2 + B2 * (a / t) ^ 4
 
 """equation (9B.54), factor for stress intensity"""
-B0(a, c) = 1.10190 - 0.019863 * (a / c) - 0.43588 * (a / c) ^ 2
+B0(a, c) = 1.10190 - 0.019863 * (a / c) - 0.043588 * (a / c) ^ 2
 
 """equation (9B.55), factor for stress intensity"""
 B1(a, c) = 4.32489 - 14.9372 * (a / c) + 19.4389 * (a / c) ^ 2 - 8.52318 * (a / c) ^ 3
