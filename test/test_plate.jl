@@ -21,9 +21,6 @@
     @test KPSCE3.M2() == 3
     @test isapprox(KPSCE3.M3(1.74975, 1.07049, -1.23918), -1.926138, atol = 1e-4)
     
-#=     @test KPSCE3.h90(x, a, M1, M2, M3) == 1
-
-    @test isapprox(1, 1, atol = 1e-4) =#
-
-        
+     @test isapprox(KPSCE3.h90(x, a, -1.23918, 3, -1.926138), 1.682027, atol = 1e-4)
+            
 end
