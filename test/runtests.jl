@@ -6,7 +6,8 @@ using Test
     include("test_bore.jl")
     include("test_thread.jl")
     include("test_plate.jl")
-
+    include("test_stress.jl")
+    include("test_part9.jl")
 
     # Write your tests here.
 end
