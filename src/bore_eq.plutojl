@@ -38,45 +38,42 @@ md"# RCSCLE3 Equations
 - Semi-ellipitical shape
 - Through-wall arbitrary stress distribution"
 
-# ╔═╡ f429726b-089a-4b3e-9fda-8e40dc92daed
-"""9C.5.10.2(b) - equation(9C.49), Bending Stress, for internal crack in bore"""
-Pb_internal(p) = p / 2
+# ╔═╡ 2a2cd2b9-fdaa-43fe-8926-f6509dee89aa
+md"### 9C.5.10.2(b) - Equation(9C.49)
+Bending Stress, for internal crack in bore"
 
-# ╔═╡ ed838028-4a91-41c8-899c-fb10a8a1974b
-"""9C.5.10.2(b) - equation(9C.50), Bending Stress, for external crack in bore"""
-Pb_external(p) = -p / 2
+# ╔═╡ 0c3cc314-56a3-4fba-b242-98c8e708dc22
+md"### 9C.5.10.2(b) - Equation(9C.50)
+Bending Stress, for external crack in bore"
 
-# ╔═╡ 738c3483-5b3c-4205-9f66-c7635d5172e0
-"""9C.5.10.2(b) - equation(9C.48), Membrane Stress, for internal and external cracks in bores with
-internal pressure, uses support OD"""
-Pm(p, Ri, t) = p * Ri / t 
+# ╔═╡ 14e03787-e93a-4219-b7d2-0392de9a0971
+md"### 9C.5.10.2(b) - Equation(9C.48)
+ Membrane Stress, for internal and external cracks in bores with internal pressure, uses support OD"
 
-# ╔═╡ 6500929b-363a-4182-a9dd-91e3a2f91333
-"""equation(9c.86) crack depth parameter, unique to inner shell with support"""
-α(a, t, c) =  (a / t) / (1 + t / c)
+# ╔═╡ 1b904ab9-5d5a-44b0-bba4-e613d3e61152
+md"### Equation(9C.86)
+crack depth parameter, unique to inner shell with support"
 
-# ╔═╡ 015d037c-3dcb-497b-a114-473c9e668a60
-"""equation(9C.32), reference stress parameter, 9C.5.10.1 eq(9C.85) requires α be defined in
-eq(9C.86)"""
-g(a, c, α) = 1 - (20 * (a / (2 * c)) ^0.75) * α ^3
+# ╔═╡ c7268307-a2dd-4796-bd41-aa1bdf181a40
+md"### Equation(9C.32)
+reference stress parameter, 9C.5.10.1 eq(9C.85) requires **α** be defined in
+eq(9C.86)"
 
-# ╔═╡ ff781a8b-48f0-4cb0-81f8-c9dd2bf98c27
-"""equation(9C.19) shell parameter"""
-λa(c, Ri, a) = 1.818 * c / ((Ri * a) ^ 0.5)
+# ╔═╡ cd57b6e9-5e8f-47bf-8f7b-b7a73e611caf
+md"### Equation(9C.19)
+shell parameter"
 
-# ╔═╡ eaf80d6a-1169-4611-845b-c66239f38260
-"""equation(9C.8) correction factor, 9C.2.3.3 λa substitution"""
-Mt(λa) = ((1.02 + 0.4411 * λa ^ 2 + 0.006124 * λa ^ 4) /
-    (1.0 + 0.02642 * λa ^ 2.0 + 1.533 * 10 ^ -6 * λa ^ 4)) ^ 0.5
+# ╔═╡ 2d53d33f-567c-4a06-b64a-c362e3343ea5
+md"### Equation(9C.8)
+correction factor, 9C.2.3.3 λa substitution"
 
-# ╔═╡ 8b88e0b5-3ae5-4e51-a3b0-024ed9d2cd8f
-"""equation(9C.18) surface correction factor"""
-Ms(a_t, Mt) = 1.0 / (1 - a_t + a_t / Mt)
+# ╔═╡ 2bd23597-e652-4822-bb48-58dcc75fb48b
+md"### Equation(9C.18)
+surface correction factor"
 
-# ╔═╡ 5613321a-e9ff-408b-bd09-f969ef3796f2
-"""equation(9C.85) Reference Stress"""
-σref(g, Pb, Ms, Pm, α) = (g * Pb + ( (g * Pb) ^ 2 +
-9 *(Ms * Pm * (1 - α) ^ 2) ^ 2) ^ 0.5 ) / (3 * (1 - α) ^ 2)
+# ╔═╡ e1a754b6-d0de-460a-91ba-c4d6614e8da0
+md"### Equation(9C.85)
+Reference Stress"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -89,18 +86,61 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ f429726b-089a-4b3e-9fda-8e40dc92daed
+remove_arguments(@latexrun P_b_internal(p) = p / 2)
+
+# ╔═╡ ed838028-4a91-41c8-899c-fb10a8a1974b
+remove_arguments(@latexrun P_b_external(p) = -p / 2)
+
+# ╔═╡ 738c3483-5b3c-4205-9f66-c7635d5172e0
+remove_arguments(@latexrun P_m(p, R_i, t) = p * R_i / t)
+
+# ╔═╡ 6500929b-363a-4182-a9dd-91e3a2f91333
+remove_arguments(@latexrun α(a, t, c) =  (a / t) / (1 + t / c) )
+
+# ╔═╡ 015d037c-3dcb-497b-a114-473c9e668a60
+remove_arguments(@latexrun g(a, c, α) = 1 - (20 * (a / (2 * c)) ^0.75) * α ^3 )
+
+# ╔═╡ ff781a8b-48f0-4cb0-81f8-c9dd2bf98c27
+remove_arguments(@latexrun λ_a(c, R_i, a) = 1.818 * c / (sqrt(R_i * a)) )
+
+# ╔═╡ eaf80d6a-1169-4611-845b-c66239f38260
+remove_arguments(@latexrun M_t(λ_a) =
+    ((1.02 + 0.4411 * λ_a ^ 2 + 0.006124 * λ_a ^ 4) /
+    (1.0 + 0.02642 * λ_a ^ 2.0 + 1.533 * 10 ^ -6 * λ_a ^ 4)) ^ 0.5 
+                )
+
+# ╔═╡ 8b88e0b5-3ae5-4e51-a3b0-024ed9d2cd8f
+remove_arguments(LaTeXString(replace((@latexrun M_s(a_t, M_t) =
+	1.0 / (1 - a_t + a_t * (1 / M_t) ) ), "a_{t}" => raw"\frac{a}{t}")))
+
+# ╔═╡ 5613321a-e9ff-408b-bd09-f969ef3796f2
+remove_arguments(@latexrun σ_ref(g, P_b, M_s, P_m, α) =
+	(g * P_b + ( (g * P_b) ^ 2 +
+9 *(M_s * P_m * (1 - α) ^ 2) ^ 2) ^ 0.5 ) / (3 * (1 - α) ^ 2)
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
-# ╠═f429726b-089a-4b3e-9fda-8e40dc92daed
-# ╠═ed838028-4a91-41c8-899c-fb10a8a1974b
-# ╠═738c3483-5b3c-4205-9f66-c7635d5172e0
-# ╠═6500929b-363a-4182-a9dd-91e3a2f91333
-# ╠═015d037c-3dcb-497b-a114-473c9e668a60
-# ╠═ff781a8b-48f0-4cb0-81f8-c9dd2bf98c27
-# ╠═eaf80d6a-1169-4611-845b-c66239f38260
-# ╠═8b88e0b5-3ae5-4e51-a3b0-024ed9d2cd8f
-# ╠═5613321a-e9ff-408b-bd09-f969ef3796f2
+# ╟─2a2cd2b9-fdaa-43fe-8926-f6509dee89aa
+# ╟─f429726b-089a-4b3e-9fda-8e40dc92daed
+# ╟─0c3cc314-56a3-4fba-b242-98c8e708dc22
+# ╟─ed838028-4a91-41c8-899c-fb10a8a1974b
+# ╟─14e03787-e93a-4219-b7d2-0392de9a0971
+# ╟─738c3483-5b3c-4205-9f66-c7635d5172e0
+# ╟─1b904ab9-5d5a-44b0-bba4-e613d3e61152
+# ╟─6500929b-363a-4182-a9dd-91e3a2f91333
+# ╟─c7268307-a2dd-4796-bd41-aa1bdf181a40
+# ╟─015d037c-3dcb-497b-a114-473c9e668a60
+# ╟─cd57b6e9-5e8f-47bf-8f7b-b7a73e611caf
+# ╟─ff781a8b-48f0-4cb0-81f8-c9dd2bf98c27
+# ╟─2d53d33f-567c-4a06-b64a-c362e3343ea5
+# ╟─eaf80d6a-1169-4611-845b-c66239f38260
+# ╟─2bd23597-e652-4822-bb48-58dcc75fb48b
+# ╟─8b88e0b5-3ae5-4e51-a3b0-024ed9d2cd8f
+# ╟─e1a754b6-d0de-460a-91ba-c4d6614e8da0
+# ╟─5613321a-e9ff-408b-bd09-f969ef3796f2
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
