@@ -30,13 +30,51 @@ These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
-#### Reference stress
-- Cylinder
-- Surface crack
-- Longitudinal direction
-- Semi-ellipitical shape
-- Through-wall arbitrary stress distribution"
+md"# General Part 9 Equations"
+
+# ╔═╡ c9f90d15-46cc-45cc-a6a6-02e5432b4972
+md"### Equation (2E.9)
+flow stress"
+
+# ╔═╡ 23638150-3392-4298-bf28-17fc97011bac
+md"### Figure 9.19 Note 2(e)
+load ratio limit"
+
+# ╔═╡ 4da7afda-d03e-43a2-b118-efedef343d2f
+md"### Equation (9.22)
+Toughness limit for FAD"
+
+# ╔═╡ 19677a42-fd81-47bb-aad1-8d90af441350
+md"### Equation (9C.25)
+Load ratio for crack across a/t values"
+
+# ╔═╡ eef3eee6-0e61-4571-a0e1-8202b56b040c
+md"### Equation (9F.89)
+J1mm 5% lower bound to calculate fracture toughness (in-lbs/in2)"
+
+# ╔═╡ 83db40a6-16b2-486d-9345-33bc67ef435d
+md"### Equation (9F.90)
+Fracture Toughness (ksi√in) for upper shelf Charpy"
+
+# ╔═╡ 8c985d20-7d06-4f98-ad0b-3b083da68149
+md"Modulus is multiplied by 1e6 is to convert to psi.
+The result is divided by 1000 to convert to ksi."
+
+# ╔═╡ 1b2f77f4-6dea-4564-9602-141e93f5989d
+md"### Equation (9.12)
+plasticity interaction factor"
+
+# ╔═╡ d218d1ef-6472-4642-8bc8-29fb89640c3d
+md"### Equation (9.14) 
+effective crack depth due to plasticity, in plane stress conditions"
+
+# ╔═╡ b326dbe6-1084-49b4-99e3-7c2a07813f6d
+md"### Equation (9.15)
+residual stresses corrected for plasticity effects"
+
+# ╔═╡ 5630b12f-e08f-41f7-9e5d-11baf2456542
+md"### Equation (9.16)
+effective crack depth due to plasticity, in plane stress conditions"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +87,80 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ b93dd582-b71f-47b2-b3f8-5cce7d1e70a1
+remove_arguments(@latexrun σ_f(σ_ys, σ_uts) = 
+	(σ_ys + σ_uts) / 2 
+				)
+
+# ╔═╡ 204f7476-3d0f-4f72-aa97-efb212a2e5ff
+remove_arguments(@latexrun Lpr_max(σ_f, σ_ys) = 
+	σ_f / σ_ys
+				)
+
+# ╔═╡ 6645b103-3784-4ff5-98d7-27d1d2b40ff6
+remove_arguments(@latexrun Kr_max(Lpr) = 
+	(1 - 0.14 * Lpr ^ 2) * (0.3 + 0.7 * exp(-0.65 * Lpr ^ 6))
+				)
+
+# ╔═╡ 558df121-8c83-4687-aaba-85e7950f93a4
+remove_arguments(@latexrun L_r(σ_ref, σ_ys) = 
+	σ_ref / σ_ys
+				)
+
+# ╔═╡ 101093f0-6700-4009-9f43-d6224e1a86a2
+remove_arguments(@latexrun J_1mm(CVN) = 
+	4.482 * CVN ^ 1.28
+				)
+
+# ╔═╡ 8ca78a3c-f750-475a-ba51-fed39d4d9ae3
+remove_arguments(@latexrun K_mat(J_crit, E_t, ν) = 
+	((J_crit * (E_t * 1e6)) / (1 - ν ^ 2)) ^ 0.5 / 1000
+				)
+
+# ╔═╡ 430a96c3-f372-4930-8aa8-b491916cf732
+remove_arguments(@latexrun Φ_0(a_eff, a) = 
+	(a_eff / a) ^ 0.5
+				)
+
+# ╔═╡ 7003f1fa-d58e-4e53-bad6-9e1f5922765a
+remove_arguments(@latexrun a_eff(a, K_sri, σ_ys) = 
+	a + (1 / (2 * pi)) * (K_sri / σ_ys) ^ 2
+				)
+
+# ╔═╡ 902bbcc9-2e29-43ab-aadc-e3293310bc29
+remove_arguments(@latexrun K_srj(Φ_0, K_sri) = 
+	Φ_0 * K_sri
+				)
+
+# ╔═╡ 9ecec921-339f-4549-aadb-49beb2ffae3a
+remove_arguments(@latexrun X(K_srj, Lpr, Kpi) = 
+	K_srj * (Lpr / Kpi)
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─c9f90d15-46cc-45cc-a6a6-02e5432b4972
+# ╟─b93dd582-b71f-47b2-b3f8-5cce7d1e70a1
+# ╟─23638150-3392-4298-bf28-17fc97011bac
+# ╟─204f7476-3d0f-4f72-aa97-efb212a2e5ff
+# ╟─4da7afda-d03e-43a2-b118-efedef343d2f
+# ╟─6645b103-3784-4ff5-98d7-27d1d2b40ff6
+# ╟─19677a42-fd81-47bb-aad1-8d90af441350
+# ╟─558df121-8c83-4687-aaba-85e7950f93a4
+# ╟─eef3eee6-0e61-4571-a0e1-8202b56b040c
+# ╟─101093f0-6700-4009-9f43-d6224e1a86a2
+# ╟─83db40a6-16b2-486d-9345-33bc67ef435d
+# ╟─8ca78a3c-f750-475a-ba51-fed39d4d9ae3
+# ╟─8c985d20-7d06-4f98-ad0b-3b083da68149
+# ╟─1b2f77f4-6dea-4564-9602-141e93f5989d
+# ╟─430a96c3-f372-4930-8aa8-b491916cf732
+# ╟─d218d1ef-6472-4642-8bc8-29fb89640c3d
+# ╟─7003f1fa-d58e-4e53-bad6-9e1f5922765a
+# ╟─b326dbe6-1084-49b4-99e3-7c2a07813f6d
+# ╟─902bbcc9-2e29-43ab-aadc-e3293310bc29
+# ╟─5630b12f-e08f-41f7-9e5d-11baf2456542
+# ╟─9ecec921-339f-4549-aadb-49beb2ffae3a
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
