@@ -13,10 +13,16 @@ export RPSCE, RPSCL, KPSCE3
 using Interpolations, XLSX, DataFrames, CSV
 
 include("table_import.jl")
-include("Part9_eq.jl")
-include("bore_eq.jl")
-include("thread_eq.jl")
-include("plate_eq.jl")
-include("weighted_f_eq.jl")
+
+module RCSCLE3
+    include("bore_eq.plutojl")
+end
+
+
+# include("Part9_eq.jl")
+# include("bore_eq.jl")
+# include("thread_eq.jl")
+# include("plate_eq.jl")
+# include("weighted_f_eq.jl")
 
 end

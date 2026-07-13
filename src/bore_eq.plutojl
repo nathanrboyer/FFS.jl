@@ -29,19 +29,16 @@ md"testing 123"
 md"# Appendix"
 
 # ╔═╡ edfa4306-499d-47a8-89ea-d0aabe81e318
-# ╠═╡ disabled = true
-#=╠═╡
-"Removes the function argument list from the latex equation,
-so equations are shorter and better match the source text."
+"""Removes the function argument list from the latex equation,
+so equations are shorter and better match the source text."""
 function remove_arguments(s::LaTeXString)
     r = r"\\left\(.*?\\right\)"
     return LaTeXString(replace(s, r=>"", count=1))
 end
-  ╠═╡ =#
 
 # ╔═╡ Cell order:
 # ╠═d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
-# ╠═a5c0677f-5bdc-41fc-8a95-2dd96f960186
-# ╠═edfa4306-499d-47a8-89ea-d0aabe81e318
+# ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
+# ╟─edfa4306-499d-47a8-89ea-d0aabe81e318
