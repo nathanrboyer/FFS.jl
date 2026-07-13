@@ -30,13 +30,71 @@ These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
+md"# RCSCCE1 Equations
 #### Reference stress
 - Cylinder
 - Surface crack
-- Longitudinal direction
+- Circumferential direction
 - Semi-ellipitical shape
-- Through-wall arbitrary stress distribution"
+- Internal pressure and net-section axial force"
+
+# ╔═╡ 5f230036-4132-483d-8a57-e0da24717a36
+md"### Equation (9C.87)
+reference stress"
+
+# ╔═╡ cc2f6158-cf21-46d4-abfc-f981787e7ec2
+md"### Equation (9C.88)
+longitudinal membrane stress"
+
+# ╔═╡ c4b91955-fcbe-4051-bb92-3d1e3cae3f27
+md"### Equation (9C.89)
+circumferential membrane stress"
+
+# ╔═╡ 67b164b8-6406-4137-8027-2ec20b39869a
+md"### Equation (9C.90)
+primary membrane stress component based on equivalent stress"
+
+# ╔═╡ 4f3b6f08-af1a-4497-9cdb-5aed45482406
+md"### Equation (9C.91) 
+reference stress parameter"
+
+# ╔═╡ f0787a85-b60e-45c6-ac6f-34b3821a501f
+md"### Equation (9C.92) 
+reference stress parameter"
+
+# ╔═╡ 75b1d5d0-c322-4dcb-b7c7-298abb7e22ef
+md"### Equation (9C.93)
+reference stress parameter"
+
+# ╔═╡ 3d5f937e-8081-42f6-b408-142cc3b91702
+md"### Equation (9C.94)
+cross-sectional area of the flaw"
+
+# ╔═╡ c3911569-1be6-4e08-ae54-ef4494b87744
+md"### Equation(9C.95)
+reference stress parameter"
+
+# ╔═╡ 68297955-22c8-483b-a275-56cca5f26442
+md"### Equation(9C.96)
+radial local coordinate originating at the internal 
+surface of the component or a reference stress parameter"
+
+# ╔═╡ 0d487a5e-84df-4b27-b2fb-7309e79c1e91
+md"### Equation "
+
+# ╔═╡ b92f919f-176d-4d13-80cd-ae5000e16a43
+md"### Equation(9C.98)
+half-angle of the crack, for an external crack"
+
+# ╔═╡ 7e78b15d-d5f9-4bb6-8622-60551de25ad8
+md"### Equation (9C.99) 
+reference stress parameter for circumferential cracks
+to account for pressure loading"
+
+# ╔═╡ 97e4e22d-3408-4426-b7fc-d030015421a6
+md"### Equation (9C.100)
+reference stress parameter for circumferential cracks
+to account for pressure loading"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +107,102 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ c428942d-c2d3-4844-9249-a22f4512ad3a
+remove_arguments(@latexrun σ_ref(P_b, U, Z, P_meq, α) =
+	(P_b + (P_b ^ 2 + 9 * (U * Z * P_meq * (1 - α) ^ 2) ^ 2) ^ 0.5) /
+(3 * (1 - α) ^ 2)
+				)
+
+# ╔═╡ b96d90f2-265c-4877-acdd-ec236f721bab
+remove_arguments(@latexrun σ_ml(p, R_i, R_o, F, P_m) =
+	(p * R_i ^ 2) / (R_o ^ 2 - R_i ^ 2) + F /
+(π * (R_o ^ 2 - R_i ^ 2)) + P_m
+				)
+
+# ╔═╡ 1af837d7-9e77-444d-99b8-7837515d7d7d
+remove_arguments(@latexrun σmc(p, R_i, t) = (p * R_i) / t )
+
+# ╔═╡ eaf5f0eb-88d2-4da8-a46c-42ac7c404c3b
+remove_arguments(@latexrun Pmeq(σ_mc, σ_ml) =
+	(((σ_mc - σ_ml) ^ 2 + σ_mc ^ 2 + σ_ml ^ 2) / 2) ^ 0.5
+				)
+
+# ╔═╡ e03049c4-62f0-4f1f-84b8-112c10152c9d
+remove_arguments(@latexrun Z(ψ, x, θ, τ) = 
+	((2 * ψ) / π - (x * θ) / π * ((2 - 2 * τ + x * τ) / (2 - τ))) ^ -1
+				)
+
+# ╔═╡ f6068e00-7753-471b-8ef0-ba004e8d5d42
+remove_arguments(@latexrun ψ(A, θ) = acos(A * sin(θ)) )
+
+# ╔═╡ 267e31ca-98d4-4696-b516-9cd18967c939
+remove_arguments(@latexrun α(a, t, c) =
+	(a / t) / (1 + t / c)
+				)
+
+# ╔═╡ bbb04c05-89ae-4ec7-8b28-09cf025ae22c
+remove_arguments(@latexrun A(x, τ) = 
+	x * (((1 - τ) * (2 - 2 * τ + x * τ) + (1 - τ + x * τ)^ 2) /
+(2 * (1 + (2 - τ) * (1 - τ))))
+				)
+
+# ╔═╡ 71027104-d3a4-4077-a2c4-f75f6768c3b8
+remove_arguments(@latexrun τ(t, R_o) = t / R_o )
+
+# ╔═╡ e6bc1c06-e81e-4788-beed-fcac54f74f94
+remove_arguments(@latexrun x(a, t) = a / t )
+
+# ╔═╡ f5293391-4afa-43a1-9f98-1df3d8f61442
+remove_arguments(@latexrun θ_in(c, R_i) = 
+	(π * c) / (4 * R_i)
+				)
+
+# ╔═╡ eca05908-55dc-4415-9b36-66875713c163
+remove_arguments(@latexrun θ_ex(c, R_o) =
+	(π * c) / (4 * R_o)
+				)
+
+# ╔═╡ 791ae8ea-74b9-48e6-a25b-353cd2325518
+remove_arguments(@latexrun U_2_20(a_t, Ri_t) =
+	1.3068 - 0.495 * a_t + (0.055 * a_t - 0.026) * Ri_t
+				)
+
+# ╔═╡ aef39dc0-9c14-49dd-9b0e-8a9c8fd0fc23
+remove_arguments(@latexrun U_1(a_t) =
+	1.601 - 0.55 * a_t
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╠═5f230036-4132-483d-8a57-e0da24717a36
+# ╠═c428942d-c2d3-4844-9249-a22f4512ad3a
+# ╠═cc2f6158-cf21-46d4-abfc-f981787e7ec2
+# ╠═b96d90f2-265c-4877-acdd-ec236f721bab
+# ╠═c4b91955-fcbe-4051-bb92-3d1e3cae3f27
+# ╠═1af837d7-9e77-444d-99b8-7837515d7d7d
+# ╠═67b164b8-6406-4137-8027-2ec20b39869a
+# ╠═eaf5f0eb-88d2-4da8-a46c-42ac7c404c3b
+# ╠═4f3b6f08-af1a-4497-9cdb-5aed45482406
+# ╠═e03049c4-62f0-4f1f-84b8-112c10152c9d
+# ╠═f0787a85-b60e-45c6-ac6f-34b3821a501f
+# ╠═f6068e00-7753-471b-8ef0-ba004e8d5d42
+# ╠═75b1d5d0-c322-4dcb-b7c7-298abb7e22ef
+# ╠═267e31ca-98d4-4696-b516-9cd18967c939
+# ╠═3d5f937e-8081-42f6-b408-142cc3b91702
+# ╠═bbb04c05-89ae-4ec7-8b28-09cf025ae22c
+# ╠═c3911569-1be6-4e08-ae54-ef4494b87744
+# ╠═71027104-d3a4-4077-a2c4-f75f6768c3b8
+# ╠═68297955-22c8-483b-a275-56cca5f26442
+# ╠═e6bc1c06-e81e-4788-beed-fcac54f74f94
+# ╠═0d487a5e-84df-4b27-b2fb-7309e79c1e91
+# ╠═f5293391-4afa-43a1-9f98-1df3d8f61442
+# ╠═b92f919f-176d-4d13-80cd-ae5000e16a43
+# ╠═eca05908-55dc-4415-9b36-66875713c163
+# ╠═7e78b15d-d5f9-4bb6-8622-60551de25ad8
+# ╠═791ae8ea-74b9-48e6-a25b-353cd2325518
+# ╠═97e4e22d-3408-4426-b7fc-d030015421a6
+# ╠═aef39dc0-9c14-49dd-9b0e-8a9c8fd0fc23
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
