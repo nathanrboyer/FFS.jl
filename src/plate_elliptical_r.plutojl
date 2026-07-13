@@ -30,13 +30,29 @@ These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
+md"# RPSCE Equations
 #### Reference stress
-- Cylinder
+- Plate
 - Surface crack
-- Longitudinal direction
 - Semi-ellipitical shape
-- Through-wall arbitrary stress distribution"
+- Through-wall arbitrary stress distribution
+RPSCE3 and RPSCE2 use the equations from RPSCE1."
+
+# ╔═╡ e09095d7-9bd4-404f-a72b-3c8e8a2ef576
+md"### Equation (9C.31)
+reference stress solution for Plate - Semi-Ellipitical - Pin Jointed"
+
+# ╔═╡ 9a0bfb92-fc56-435c-babc-cc6d64bd3e0f
+md"### Equation (9C.33)/(9C.34)
+reference stress parameter"
+
+# ╔═╡ 4e8ab30b-08af-46d9-a49d-a9d7a4501c09
+md"### 9C.3.4.2(b) -> Equation(9C.4)
+membrane stress"
+
+# ╔═╡ 518714e8-1212-4923-aa35-a6719f6dbdbd
+md"### 9C.3.4.2(b) -> Equation(9C.5)
+bending stress"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +65,43 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ 196eba7b-05c5-4b2e-a8ca-f1ddf9114fb7
+remove_arguments(@latexrun σ_ref(P_b, P_m, α) =
+	(P_b + 3 * P_m * α + ((P_b + 3 * P_m * α) ^ 2 + 9 * P_m ^ 2 * (1 - α) ^ 2) ^ 0.5) /
+(3 * (1 - α) ^ 2)
+				)
+
+# ╔═╡ 22052bd5-9f61-4c8e-a541-c00da9c581d6
+remove_arguments(@latexrun function α(W, a, t, c)
+    if W ≥ (c + t)
+        return (a / t) / (1 + t / c)
+    elseif W < (c + t)
+        return (a / t) * (c / W)
+    end
+end
+                )
+
+# ╔═╡ d22299b8-ae28-48da-86f0-f6273d67dd6b
+remove_arguments(@latexrun P_m(P_0, P_1, P_2, P_3, P_4) =
+	P_0 + P_1 / 2 + P_2 / 3 + P_3 / 4 + P_4 / 5
+				)
+
+# ╔═╡ ea8b0d98-cbf8-443f-aaec-b1f11d455d06
+remove_arguments(@latexrun P_b(P_0, P_1, P_2, P_3, P_4) =
+	- P_1 / 2 - P_2 / 2 - 9 * P_3 / 20 - 6 * P_4 / 15
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─e09095d7-9bd4-404f-a72b-3c8e8a2ef576
+# ╟─196eba7b-05c5-4b2e-a8ca-f1ddf9114fb7
+# ╟─9a0bfb92-fc56-435c-babc-cc6d64bd3e0f
+# ╟─22052bd5-9f61-4c8e-a541-c00da9c581d6
+# ╟─4e8ab30b-08af-46d9-a49d-a9d7a4501c09
+# ╟─d22299b8-ae28-48da-86f0-f6273d67dd6b
+# ╟─518714e8-1212-4923-aa35-a6719f6dbdbd
+# ╟─ea8b0d98-cbf8-443f-aaec-b1f11d455d06
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186

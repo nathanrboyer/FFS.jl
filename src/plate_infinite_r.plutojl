@@ -30,13 +30,28 @@ These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
+md"# RPSCL Equations
 #### Reference stress
-- Cylinder
+- Plate
 - Surface crack
-- Longitudinal direction
-- Semi-ellipitical shape
+- Infinite width
 - Through-wall arbitrary stress distribution"
+
+# ╔═╡ 56356d71-d589-41f7-b4e5-db6dff306f13
+md"### 9C.3.3 -> Equation(9C.29)
+reference stress parameter"
+
+# ╔═╡ 7f939ba7-132c-4e0f-8771-305beeb01f1f
+md"### Equation (9C.31) 
+reference stress solution for Plate - Pin Jointed - repurposed as infinite"
+
+# ╔═╡ 2b26924d-8c16-4482-814f-43f5c8ecd62e
+md"### 9C.3.2.2(b) -> Equation(9C.4)
+membrane stress"
+
+# ╔═╡ 054cca7a-802c-442c-8e72-5b6725c268a6
+md"### 9C.3.2.2(b) -> Equation(9C.5)
+bending stress"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +64,37 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ 8cfd5029-0b09-4adc-afce-2bb9258c6ad7
+remove_arguments(@latexrun α(a, t) = a / t)
+
+# ╔═╡ f0a8525b-8257-4e9d-bbab-d7ea796d3072
+remove_arguments(@latexrun σ_ref(P_b, P_m, α) = 
+	(P_b + 3 * P_m * α +
+		((P_b + 3 * P_m * α) ^ 2 + 9 * P_m ^ 2 * (1 - α) ^ 2) ^ 0.5) /
+		(3 * (1 - α) ^ 2)
+				)
+
+# ╔═╡ 3430dee7-6f34-49e4-adc7-bc795473ef03
+remove_arguments(@latexrun P_m(P_0, P_1, P_2, P_3, P_4) =
+	P_0 + P_1 / 2 + P_2 / 3 + P_3 / 4 + P_4 / 5
+				)
+
+# ╔═╡ df322562-7e3c-4e6d-8c7e-8fcfb8f808cd
+remove_arguments(@latexrun P_b(P_0, P_1, P_2, P_3, P_4) =
+	- P_1 / 2 - P_2 / 2 - 9 * P_3 / 20 - 6 * P_4 / 15
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─56356d71-d589-41f7-b4e5-db6dff306f13
+# ╟─8cfd5029-0b09-4adc-afce-2bb9258c6ad7
+# ╟─7f939ba7-132c-4e0f-8771-305beeb01f1f
+# ╟─f0a8525b-8257-4e9d-bbab-d7ea796d3072
+# ╟─2b26924d-8c16-4482-814f-43f5c8ecd62e
+# ╟─3430dee7-6f34-49e4-adc7-bc795473ef03
+# ╟─054cca7a-802c-442c-8e72-5b6725c268a6
+# ╟─df322562-7e3c-4e6d-8c7e-8fcfb8f808cd
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
