@@ -30,13 +30,14 @@ These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
-#### Reference stress
-- Cylinder
-- Surface crack
-- Longitudinal direction
-- Semi-ellipitical shape
-- Through-wall arbitrary stress distribution"
+md"# KPTC Equations
+#### Stress Intensity
+- Plate
+- Through wall crack
+- Through-wall membrane and bending stress"
+
+# ╔═╡ 5b5c9203-909e-4142-aea3-f00bdde07af9
+md"### TODO add thru wall method"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -52,6 +53,7 @@ end
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╠═5b5c9203-909e-4142-aea3-f00bdde07af9
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186

@@ -30,13 +30,110 @@ These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
-#### Reference stress
-- Cylinder
-- Surface crack
-- Longitudinal direction
-- Semi-ellipitical shape
+md"# KPSCE3 Equations
+#### Stress Intensity
+- Plate
+- Elliptical surface crack
 - Through-wall arbitrary stress distribution"
+
+# ╔═╡ a115cbd9-0dac-4d0e-b5ee-801017048d9b
+md"### Equation (9B.49)
+weight equation at φ=π/2 or infinitely long crack"
+
+# ╔═╡ c921aa1e-3e5a-47f8-954b-9b1763e5e8c8
+md"### Equation (9B.15) & Equation(9B.16)
+parameter for stress intensity factor"
+
+# ╔═╡ 9fea050c-bd5d-4abf-9abe-068c8327aef5
+md"### Equation (9B.50)
+weight function coefficient at φ=π/2"
+
+# ╔═╡ 45e259f1-f192-4441-a9a0-ae14824ae114
+md"### Equation (9B.51)
+weight function coefficient at φ=π/2"
+
+# ╔═╡ c330c3a9-f342-44b5-8563-577ec10c8c3f
+@latexrun M_2() = 3
+
+# ╔═╡ b12e8c53-46e9-4024-9a01-5f6efeea844b
+md"### Equation (9B.52)
+weight function coefficient at φ=π/2"
+
+# ╔═╡ a25e435a-03e9-4102-8329-3d4cf296b52c
+md"### Equation (9B.53)
+factor for stress intensity"
+
+# ╔═╡ 66d68b2b-9aed-4b67-983a-7df0bfd6b93a
+md"### Equation (9B.54)
+factor for stress intensity"
+
+# ╔═╡ 8d770a7b-273f-45df-90d8-a5c532fd26ba
+md"### Equation (9B.55)
+factor for stress intensity"
+
+# ╔═╡ 3bcddbda-d65f-4631-931c-281afcd72ca8
+md"### Equation (9B.56)
+factor for stress intensity"
+
+# ╔═╡ ec2d31d8-8737-4bd9-b6af-2bf8f7c10cc8
+md"### Equation (9B.57)
+factor for stress intensity"
+
+# ╔═╡ bf5f26d2-3410-4bdb-b0ef-23b59b1f963f
+md"### Equation (9B.58)
+factor for stress intensity"
+
+# ╔═╡ 06c697b3-6523-40cf-9634-eab9448d7254
+md"### Equation (9B.59)
+factor for stress intensity"
+
+# ╔═╡ e896ddad-8804-498d-846d-a33d97c0f77c
+md"### Equation (9B.60)
+factor for stress intensity"
+
+# ╔═╡ 45c586c4-31c8-4bec-b474-6c563db8309b
+md"### Equation (9B.61)
+weight equation at φ=0, surface point of crack"
+
+# ╔═╡ b21a8a59-902f-4370-8212-0863d8fb2707
+md"### Equation (9B.62)
+weight function coefficient at φ=0"
+
+# ╔═╡ 32fd3480-1a78-47f2-b8ab-afddf94ae413
+md"### Equation (9B.63)
+weight function coefficient at φ=0"
+
+# ╔═╡ 8005a756-ecd3-4918-ace6-9b5d8a61e5b8
+md"### Equation (9B.64)
+weight function coefficient at φ=0"
+
+# ╔═╡ 7cdf8374-7e5d-4cf5-96b6-b07e5f056035
+md"### Equation (9B.65)
+weight function coefficient at φ=0"
+
+# ╔═╡ 7b7768c1-3736-44c1-9117-32f9e9a72a2e
+md"### Equation (9B.66)
+weight function coefficient at φ=0"
+
+# ╔═╡ c261b21d-732d-4379-907f-3162acb11ff4
+md"### Equation (9B.67)
+weight function coefficient at φ=0"
+
+# ╔═╡ 88780788-5715-4176-bd22-dca0b9a8ecba
+md"### Equation (9B.68)
+weight function coefficient at φ=0"
+
+# ╔═╡ c310f7ed-c095-4692-a494-b99e92f49e62
+md"### Equation (9B.69)
+weight function coefficient at φ=0"
+
+# ╔═╡ 49deacc3-2386-4dbc-bc29-3e7d88249765
+md"### Equation (9B.70)
+weight function coefficient at φ=0"
+
+# ╔═╡ 76718c8c-3c16-43a6-b4b4-da60badff726
+md"### Equation (9B.19)
+finite width correction factor"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +146,179 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ 8acc08da-f932-4e67-b75c-755832bc8082
+remove_arguments(@latexrun h90(x, a, M_1, M_2, M_3) =
+    (2 / sqrt(2 * π * (a - x))) *
+    (1 + M_1 * (1 - x / a) ^ 0.5 + M_2 * (1 - x / a) + M_3 * (1 - x / a) ^ 1.5)
+                )
+
+# ╔═╡ c9ea3314-2a7f-422f-ae9a-d025ada35cb8
+remove_arguments(LaTeXString(replace((@latexrun function Q(a_c)
+    if a_c ≤ 1
+        return 1 + 1.464 * a_c ^ 1.65
+    elseif a_c > 1
+        return 1 + 1.464 * (1 / a_c) ^ 1.65
+    end
+end
+                ), "a_{c}" => "(a/c)")))
+
+# ╔═╡ 004eed74-9755-441d-9947-01673346a42f
+remove_arguments(@latexrun M_1(Q, Y_0, Y_1) =
+	(π / sqrt(2 * Q)) * (4 * Y_0 - 6 * Y_1) - 24 / 5
+				)
+
+# ╔═╡ 15ef38de-b8f3-43cc-95a3-b2a5a79bd7b0
+remove_arguments(@latexrun M_3(Q, Y_0, M_1) =
+	2 * ((π / sqrt(2 * Q) ) * Y_0 - M_1 - 4)
+				)
+
+# ╔═╡ 4970f254-fdda-4862-98d1-c300d427dab0
+remove_arguments(@latexrun Y_0(B_0, B_1, B_2, a, t) =
+	B_0 + B_1 * (a / t) ^ 2 + B_2 * (a / t) ^ 4
+				)
+
+# ╔═╡ 383e8a32-194c-47a2-b996-331c6454487a
+remove_arguments(@latexrun B_0(a, c) =
+	1.10190 - 0.019863 * (a / c) - 0.043588 * (a / c) ^ 2
+				)
+
+# ╔═╡ 1dbe334b-18e1-44f3-91bd-671cc57f8f15
+remove_arguments(@latexrun B_1(a, c) =
+	4.32489 - 14.9372 * (a / c) + 19.4389 * (a / c) ^ 2 - 8.52318 * (a / c) ^ 3
+				)
+
+# ╔═╡ 4d9e426b-c46a-4983-8ecf-3e969f3f4e93
+remove_arguments(@latexrun B_2(a, c) =
+	-3.03329 + 9.96083 * (a / c) - 12.582 * (a / c) ^ 2 + 5.52318 * (a / c) ^ 3
+				)
+
+# ╔═╡ 1ecfa04f-8295-4ed3-9ac0-4b17ea7dd940
+remove_arguments(@latexrun Y_1(A_0, A_1, A_2, a, t) =
+	A_0 + A_1 * (a / t) ^ 2 + A_2 * (a / t) ^ 4
+				)
+
+# ╔═╡ 3ebbc5c3-9a4a-41b5-97cc-068da7e9d7cf
+remove_arguments(@latexrun A_0(a, c) =
+	0.456128 - 0.114206 * (a / c) - 0.046523 * (a / c) ^ 2
+				)
+
+# ╔═╡ f1acdfed-f3a1-453f-8b20-f98f3ba9a3d0
+remove_arguments(@latexrun A_1(a, c) =
+	3.022 - 10.8679 * (a / c) + 14.94 * (a / c) ^ 2 - 6.8537 * (a / c) ^ 3
+				)
+
+# ╔═╡ 2ec43da6-c6e7-4f4c-b3da-5f70b5661f5f
+remove_arguments(@latexrun A_2(a, c) =
+	-2.28655 + 7.88771 * (a / c) - 11.0675 * (a / c) ^ 2 + 5.16354 * (a / c) ^ 3
+				)
+
+# ╔═╡ bcb9fbce-3fb7-4a70-93d8-3575e16900fb
+remove_arguments(@latexrun h_0(x, a, N_1, N_2, N_3) =
+    (2 / sqrt(π * x) ) *
+    (1 + N_1 * (x / a) ^ 0.5 + N_2 * (x / a) + N_3 * (x / a) ^ 1.5)
+                )
+
+# ╔═╡ 0ccbd96d-d1ac-4f1d-b1cf-4bfadf86f031
+remove_arguments(@latexrun N_1(Q, F_0, F_1) =
+	(π / sqrt(4 * Q)) * (30 * F_1 - 18 * F_0) - 8
+				)
+
+# ╔═╡ c53d6bf9-aba4-477d-9303-3b6af0201908
+remove_arguments(@latexrun N_2(Q, F_0, F_1) =
+	(π / sqrt(4 * Q)) * (60 * F_0 - 90 * F_1) + 15
+				)
+
+# ╔═╡ 184fb8ea-f64e-46fd-a5ba-ff1cf9e64472
+remove_arguments(@latexrun N_3(N_1, N_2) =
+	-(1 + N_1 + N_2)
+				)
+
+# ╔═╡ 30cea32c-49fc-4ac9-b622-ad48ffbac40a
+remove_arguments(@latexrun F_0(α, a, c, β) =
+	α * (a / c) ^ β
+				)
+
+# ╔═╡ d8b3c122-f90d-4d7a-a2d7-956d54b10095
+remove_arguments(@latexrun α(a, t) =
+	1.14326 + 0.0175996 * (a / t) + 0.501001 * (a / t) ^ 2
+				)
+
+# ╔═╡ aaec0ae4-5de6-4164-a407-850304c8d974
+remove_arguments(@latexrun β(a, t) =
+	0.458320 - 0.102985 * (a / t) - 0.398175 * (a / t) ^2
+				)
+
+# ╔═╡ ec94a1b2-a758-467a-b373-5e72944f9e83
+remove_arguments(@latexrun F_1(γ, a, c, δ) =
+	γ * (a / c) ^ δ
+				)
+
+# ╔═╡ b23dde98-a2ec-4c08-8660-6d48187f53a8
+remove_arguments(@latexrun γ(a, t) =
+	0.976770 - 0.131975 * (a / t) - 0.484875 * (a / t) ^ 2
+				)
+
+# ╔═╡ 9970203a-263a-4834-8583-afbe6adeaa83
+remove_arguments(@latexrun δ(a, t) =
+	0.448863 - 0.173295 * (a / t) - 0.267775 * (a / t) ^ 2
+				)
+
+# ╔═╡ 71e71733-3afe-4054-96e2-d1efff3df0ef
+remove_arguments(@latexrun fw(c, W, a, t) =
+	(sec( (π * c / (2 * W)) * sqrt(a / t) ) ) ^ 0.5
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─a115cbd9-0dac-4d0e-b5ee-801017048d9b
+# ╟─8acc08da-f932-4e67-b75c-755832bc8082
+# ╟─c921aa1e-3e5a-47f8-954b-9b1763e5e8c8
+# ╟─c9ea3314-2a7f-422f-ae9a-d025ada35cb8
+# ╟─9fea050c-bd5d-4abf-9abe-068c8327aef5
+# ╟─004eed74-9755-441d-9947-01673346a42f
+# ╟─45e259f1-f192-4441-a9a0-ae14824ae114
+# ╟─c330c3a9-f342-44b5-8563-577ec10c8c3f
+# ╟─b12e8c53-46e9-4024-9a01-5f6efeea844b
+# ╟─15ef38de-b8f3-43cc-95a3-b2a5a79bd7b0
+# ╟─a25e435a-03e9-4102-8329-3d4cf296b52c
+# ╟─4970f254-fdda-4862-98d1-c300d427dab0
+# ╟─66d68b2b-9aed-4b67-983a-7df0bfd6b93a
+# ╟─383e8a32-194c-47a2-b996-331c6454487a
+# ╟─8d770a7b-273f-45df-90d8-a5c532fd26ba
+# ╟─1dbe334b-18e1-44f3-91bd-671cc57f8f15
+# ╟─3bcddbda-d65f-4631-931c-281afcd72ca8
+# ╟─4d9e426b-c46a-4983-8ecf-3e969f3f4e93
+# ╟─ec2d31d8-8737-4bd9-b6af-2bf8f7c10cc8
+# ╟─1ecfa04f-8295-4ed3-9ac0-4b17ea7dd940
+# ╟─bf5f26d2-3410-4bdb-b0ef-23b59b1f963f
+# ╟─3ebbc5c3-9a4a-41b5-97cc-068da7e9d7cf
+# ╟─06c697b3-6523-40cf-9634-eab9448d7254
+# ╟─f1acdfed-f3a1-453f-8b20-f98f3ba9a3d0
+# ╟─e896ddad-8804-498d-846d-a33d97c0f77c
+# ╟─2ec43da6-c6e7-4f4c-b3da-5f70b5661f5f
+# ╟─45c586c4-31c8-4bec-b474-6c563db8309b
+# ╟─bcb9fbce-3fb7-4a70-93d8-3575e16900fb
+# ╟─b21a8a59-902f-4370-8212-0863d8fb2707
+# ╟─0ccbd96d-d1ac-4f1d-b1cf-4bfadf86f031
+# ╟─32fd3480-1a78-47f2-b8ab-afddf94ae413
+# ╟─c53d6bf9-aba4-477d-9303-3b6af0201908
+# ╟─8005a756-ecd3-4918-ace6-9b5d8a61e5b8
+# ╟─184fb8ea-f64e-46fd-a5ba-ff1cf9e64472
+# ╟─7cdf8374-7e5d-4cf5-96b6-b07e5f056035
+# ╟─30cea32c-49fc-4ac9-b622-ad48ffbac40a
+# ╟─7b7768c1-3736-44c1-9117-32f9e9a72a2e
+# ╟─d8b3c122-f90d-4d7a-a2d7-956d54b10095
+# ╟─c261b21d-732d-4379-907f-3162acb11ff4
+# ╟─aaec0ae4-5de6-4164-a407-850304c8d974
+# ╟─88780788-5715-4176-bd22-dca0b9a8ecba
+# ╟─ec94a1b2-a758-467a-b373-5e72944f9e83
+# ╟─c310f7ed-c095-4692-a494-b99e92f49e62
+# ╟─b23dde98-a2ec-4c08-8660-6d48187f53a8
+# ╟─49deacc3-2386-4dbc-bc29-3e7d88249765
+# ╟─9970203a-263a-4834-8583-afbe6adeaa83
+# ╟─76718c8c-3c16-43a6-b4b4-da60badff726
+# ╟─71e71733-3afe-4054-96e2-d1efff3df0ef
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
