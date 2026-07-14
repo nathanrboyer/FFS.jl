@@ -26,17 +26,61 @@ end
 md"""
 ### Verification
 These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC 2025 Edition.
-- *Verified compatible with BPVC 2025 Edition: Maxwell Frame -- 07/13/2026*
+- *Verified compatible with BPVC 2025 Edition: Maxwell Frame -- 07/14/2026*
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
+md"# RCSCCL3 Equations
 #### Reference stress
 - Cylinder
 - Surface crack
-- Longitudinal direction
-- Semi-ellipitical shape
+- Circumferential direction
+- 360° Annular shape
 - Through-wall arbitrary stress distribution"
+
+# ╔═╡ 2ccaa835-1fcb-4cac-9187-2cb591afd2d6
+md"### Equation (9C.77)
+reference stress"
+
+# ╔═╡ 98d76452-dcca-4364-a6bd-ab0ee556672f
+md"### 9C.5.8.2(b) -> Equation(9C.4)"
+
+# ╔═╡ ce9c95bc-ec87-47f8-aca0-94fa2a9f3db4
+md"### 9C.5.8.2(b) -> Equation(9C.5)"
+
+# ╔═╡ 329f031c-18d7-4aaf-ac60-efeedaf51ed1
+md"### Equation(9C.84)
+reference stress parameter for circumferential 
+cracks to account for pressure loading
+
+for 2 ≤ Ri / t ≤ 20 "
+
+# ╔═╡ a33ff869-1c83-4298-a6f6-af8b1fd51716
+md"### Equation(9C.78)
+membrane stress based on equivalent stress"
+
+# ╔═╡ ad2153c7-3922-493d-95b7-74e7e41d6d36
+md"### Equation(9C.79) 
+reference stress parameter "
+
+# ╔═╡ 1de52ddc-811b-4bbb-8528-259018dfd264
+md"### Equation(9C.80) 
+reference stress parameter "
+
+# ╔═╡ fd185924-087c-45a8-8fbb-e8edcdfbe515
+md"### Equation(9C.81) 
+reference stress parameter"
+
+# ╔═╡ f68ee143-dc12-4c4e-88de-2d81a3c8223e
+md"### Equation(9C.82)
+circumferential membrane stress, with internal pressure "
+
+# ╔═╡ 4acb972c-c6f7-4752-9676-0f8f6fbcb8fd
+md"### Equation(9C.83) 
+longitudinal membrane stress, not internal pressure"
+
+# ╔═╡ 36357dab-31bc-433e-96d8-ccc1df4b7ea0
+@latexrun σ_mc_ex() = 0
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +93,71 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ 8692fc7c-2b58-4afb-adea-7fb009bc2e3f
+remove_arguments(@latexrun σ_ref(P_b, U, Σ_m, α) =
+	(P_b + (P_b ^ 2 + 9 * (U * Σ_m * (1 - α) ^ 2) ^ 2) ^ 0.5) /
+(3 * (1 - α) ^ 2)
+				)
+
+# ╔═╡ d60f85f9-9074-4c9a-aa4c-df9bfb5c5488
+remove_arguments(@latexrun P_m(P_0, P_1, P_2, P_3, P_4) =
+	P_0 + P_1 / 2 + P_2 / 3 + P_3 / 4 + P_4 / 5
+				)
+
+# ╔═╡ b02445cd-10c3-405a-bbfe-735da48fc2bc
+remove_arguments(@latexrun P_b(P_0, P_1, P_2, P_, P_4) =
+	- P_1 / 2 - P_2 / 2 - 9 * P_3 / 20 - 6 * P_4 / 15
+				)
+
+# ╔═╡ d78af4ef-e1c9-4855-81a2-48c2575631a4
+remove_arguments(LaTeXString(replace(replace((@latexrun U(a_t, Ri_t) =
+	1.3807 - 0.2978 * a_t + (0.003 * a_t - 0.0154) * Ri_t
+				),
+					 "a_{t}" => raw"\frac{a}{t}"),
+					 "Ri_{t}" => raw"\frac{R_i}{t}")))
+
+# ╔═╡ fe95a378-bfe8-4ff7-85c4-69100f7f6e0e
+remove_arguments(@latexrun Σ_m(σ_mc, Z, P_m) =
+	sqrt(((σ_mc - Z * P_m) ^ 2 + σ_mc ^ 2 + (Z * P_m) ^ 2) / 2)
+				)
+
+# ╔═╡ a595885c-f2af-4b4f-962a-36d7219c92bc
+remove_arguments(@latexrun Z(α, τ) =
+	(1 - α * ((2 - 2 * τ + α * τ) / (2 - τ))) ^ -1
+				)
+
+# ╔═╡ 95c3f333-91e3-43c9-9377-cd0d9a32be93
+remove_arguments(@latexrun τ(t, R_o) = t / R_o )
+
+# ╔═╡ 83b0abf8-2281-40da-b9df-d33966d34766
+remove_arguments(@latexrun α(a, t) = a / t )
+
+# ╔═╡ 95dea4e9-7241-4034-bc60-c640e7bd6e1b
+remove_arguments(@latexrun σ_mc_in(p, R_i, t) = p * R_i / t )
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─2ccaa835-1fcb-4cac-9187-2cb591afd2d6
+# ╟─8692fc7c-2b58-4afb-adea-7fb009bc2e3f
+# ╟─98d76452-dcca-4364-a6bd-ab0ee556672f
+# ╟─d60f85f9-9074-4c9a-aa4c-df9bfb5c5488
+# ╟─ce9c95bc-ec87-47f8-aca0-94fa2a9f3db4
+# ╟─b02445cd-10c3-405a-bbfe-735da48fc2bc
+# ╟─329f031c-18d7-4aaf-ac60-efeedaf51ed1
+# ╟─d78af4ef-e1c9-4855-81a2-48c2575631a4
+# ╟─a33ff869-1c83-4298-a6f6-af8b1fd51716
+# ╟─fe95a378-bfe8-4ff7-85c4-69100f7f6e0e
+# ╟─ad2153c7-3922-493d-95b7-74e7e41d6d36
+# ╟─a595885c-f2af-4b4f-962a-36d7219c92bc
+# ╟─1de52ddc-811b-4bbb-8528-259018dfd264
+# ╟─95c3f333-91e3-43c9-9377-cd0d9a32be93
+# ╟─fd185924-087c-45a8-8fbb-e8edcdfbe515
+# ╟─83b0abf8-2281-40da-b9df-d33966d34766
+# ╟─f68ee143-dc12-4c4e-88de-2d81a3c8223e
+# ╟─95dea4e9-7241-4034-bc60-c640e7bd6e1b
+# ╟─4acb972c-c6f7-4752-9676-0f8f6fbcb8fd
+# ╟─36357dab-31bc-433e-96d8-ccc1df4b7ea0
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
