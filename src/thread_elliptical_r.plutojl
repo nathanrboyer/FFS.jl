@@ -204,7 +204,7 @@ remove_arguments(LaTeXString(replace(@latexrun U_1(a_t) =
 # ╟─e6bc1c06-e81e-4788-beed-fcac54f74f94
 # ╟─0d487a5e-84df-4b27-b2fb-7309e79c1e91
 # ╟─f5293391-4afa-43a1-9f98-1df3d8f61442
-# ╟─b92f919f-176d-4d13-80cd-ae5000e16a43
+# ╠═b92f919f-176d-4d13-80cd-ae5000e16a43
 # ╠═eca05908-55dc-4415-9b36-66875713c163
 # ╟─7e78b15d-d5f9-4bb6-8622-60551de25ad8
 # ╠═791ae8ea-74b9-48e6-a25b-353cd2325518

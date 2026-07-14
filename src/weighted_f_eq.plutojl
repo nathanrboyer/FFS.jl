@@ -26,17 +26,50 @@ end
 md"""
 ### Verification
 These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC 2025 Edition.
-- *Verified compatible with BPVC 2025 Edition: Maxwell Frame -- 07/13/2026*
+- *Verified compatible with BPVC 2025 Edition: Maxwell Frame -- 07/14/2026*
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
-md"# RCSCLE3 Equations
-#### Reference stress
-- Cylinder
-- Surface crack
-- Longitudinal direction
-- Semi-ellipitical shape
-- Through-wall arbitrary stress distribution"
+md"# WFMFSC - Stress Intensity
+#### Weighted Function Method for Surface Cracks
+- Through-Wall Arbitrary Stress Distribution
+- Valid for cylindrical ellipitical(mid bore), and circumfrential 360°(thread root)."
+
+# ╔═╡ e66aa4db-3bf4-4e21-a07e-a9e4bffcb647
+md"### Equations(9B.15) & (9B.16)
+parameter for stress intensity factor"
+
+# ╔═╡ 26b4155e-edd0-4c99-b1a3-fcc9a8996074
+md"### Equation(9B.267)
+weight function coefficient at φ=π/2"
+
+# ╔═╡ 7612ad4e-e71b-4c40-a145-e030cc92c95f
+md"### Equation(9B.268)
+weight function coefficient at φ=π/2"
+
+# ╔═╡ ebd84686-fa3c-4d2c-812d-ddfbb78c2a4d
+md"### Equation(9B.269)
+weight function coefficient at φ=π/2"
+
+# ╔═╡ 885453cb-9a81-467b-bbe4-8b8d64efb2c7
+md"### Equation(9B.270)
+weight function coefficient at φ=0"
+
+# ╔═╡ 0130ac64-50bc-46b8-ba49-6bb139efe14c
+md"### Equation(9B.271)
+weight function coefficient at φ=0"
+
+# ╔═╡ 3299e7a1-3c2c-406f-be11-fc8d756985fe
+md"### Equation(9B.272)
+weight function coefficient at φ=0"
+
+# ╔═╡ 8c4b0a7b-5541-45fc-aa64-8b9957cfbc8c
+md"### Equation(9B.262)
+weight equation at φ=π/2 or infinitely long crack"
+
+# ╔═╡ 83b0f730-9135-4939-ab10-c8e269cbad5e
+md"### Equation(9B.263)
+weight equation at φ=0, surface point of crack"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -49,9 +82,81 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ 86625a04-7ebf-4d09-9101-bbbec415bb15
+remove_arguments(LaTeXString(replace((@latexrun function Q(a_c)
+    if a_c ≤ 1
+        return 1 + 1.464 * a_c ^ 1.65
+    elseif a_c >1
+        return 1 + 1.464 * (1 / a_c) ^ 1.65
+    end
+end
+),"a_{c}" => raw"\frac{a}{c}")))
+
+# ╔═╡ a7a5abb9-f4b0-4ba4-aea4-7105e8c14643
+remove_arguments(@latexrun M_1(Q, G_0, G_1) =
+	(2 * π / sqrt(2 * Q)) * (3 * G_1 - G_0) - 24 / 5
+				)
+
+# ╔═╡ b8d03ff5-280b-4665-8d56-2f4ba6a9ebd3
+remove_arguments(@latexrun M_2() = 3 )
+
+# ╔═╡ a8ab3847-d327-4073-9b48-77c376cfcd30
+remove_arguments(@latexrun M_3(Q, G_0, G_1) = 
+	(6  * π  / sqrt(2 * Q) ) * (G_0 - 2 * G_1) + 8 / 5
+				)
+
+# ╔═╡ 9085d0f2-bb23-4529-96bb-23e38f4404d4
+remove_arguments(@latexrun N_1(Q, G_0, G_1) =
+	(3 * π / sqrt(Q) ) * (2 * G_0 - 5 * G_1) - 8
+				)
+
+# ╔═╡ 5189cf3b-4bfb-48b9-89b6-e82f055913e7
+remove_arguments(@latexrun N_2(Q, G_0, G_1) =
+	(15 * π / sqrt(Q)) * (3 * G_1 - G_0) + 15
+				)
+
+# ╔═╡ 81961b97-f0e4-4d65-a322-83d1026273ad
+remove_arguments(@latexrun N_3(Q, G_0, G_1) =
+	(3 * π / sqrt(Q)) * (3 * G_0 - 10 * G_1) - 8
+				)
+
+# ╔═╡ 755553d8-b1d7-4fcc-af8a-80c0e28cc92b
+remove_arguments(@latexrun h_90(x, a, M_1, M_2, M_3) =
+    (
+    (2 / sqrt(2 * π * (a - x)) ) *
+    (1 + M_1 * (1 - x / a) ^ 0.5 + M_2 * (1 - x / a) + M_3 * (1 - x / a) ^ 1.5)
+)
+                )
+
+# ╔═╡ 75dbb8eb-b4d7-4520-a2b9-7688e56975c9
+remove_arguments(@latexrun h_0(x, a, N_1, N_2, N_3) =
+    (
+    (2 / sqrt(π * x) ) *
+    (1 + N_1 * (x / a) ^ 0.5 + N_2 * (x / a) + N_3 * (x / a) ^ 1.5)
+)
+                )
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─e66aa4db-3bf4-4e21-a07e-a9e4bffcb647
+# ╟─86625a04-7ebf-4d09-9101-bbbec415bb15
+# ╟─26b4155e-edd0-4c99-b1a3-fcc9a8996074
+# ╟─a7a5abb9-f4b0-4ba4-aea4-7105e8c14643
+# ╟─7612ad4e-e71b-4c40-a145-e030cc92c95f
+# ╟─b8d03ff5-280b-4665-8d56-2f4ba6a9ebd3
+# ╟─ebd84686-fa3c-4d2c-812d-ddfbb78c2a4d
+# ╟─a8ab3847-d327-4073-9b48-77c376cfcd30
+# ╟─885453cb-9a81-467b-bbe4-8b8d64efb2c7
+# ╟─9085d0f2-bb23-4529-96bb-23e38f4404d4
+# ╟─0130ac64-50bc-46b8-ba49-6bb139efe14c
+# ╟─5189cf3b-4bfb-48b9-89b6-e82f055913e7
+# ╟─3299e7a1-3c2c-406f-be11-fc8d756985fe
+# ╟─81961b97-f0e4-4d65-a322-83d1026273ad
+# ╟─8c4b0a7b-5541-45fc-aa64-8b9957cfbc8c
+# ╟─755553d8-b1d7-4fcc-af8a-80c0e28cc92b
+# ╟─83b0f730-9135-4939-ab10-c8e269cbad5e
+# ╟─75dbb8eb-b4d7-4520-a2b9-7688e56975c9
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
