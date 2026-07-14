@@ -105,7 +105,7 @@ remove_arguments(@latexrun P_m(P_0, P_1, P_2, P_3, P_4) =
 				)
 
 # ╔═╡ b02445cd-10c3-405a-bbfe-735da48fc2bc
-remove_arguments(@latexrun P_b(P_0, P_1, P_2, P_, P_4) =
+remove_arguments(@latexrun P_b(P_0, P_1, P_2, P_3, P_4) =
 	- P_1 / 2 - P_2 / 2 - 9 * P_3 / 20 - 6 * P_4 / 15
 				)
 

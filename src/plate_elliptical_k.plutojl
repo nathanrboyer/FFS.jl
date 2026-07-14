@@ -147,7 +147,7 @@ function remove_arguments(s::LaTeXString)
 end
 
 # ╔═╡ 8acc08da-f932-4e67-b75c-755832bc8082
-remove_arguments(@latexrun h90(x, a, M_1, M_2, M_3) =
+remove_arguments(@latexrun h_90(x, a, M_1, M_2, M_3) =
     (2 / sqrt(2 * π * (a - x))) *
     (1 + M_1 * (1 - x / a) ^ 0.5 + M_2 * (1 - x / a) + M_3 * (1 - x / a) ^ 1.5)
                 )
@@ -272,7 +272,7 @@ remove_arguments(@latexrun fw(c, W, a, t) =
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
 # ╟─a115cbd9-0dac-4d0e-b5ee-801017048d9b
-# ╟─8acc08da-f932-4e67-b75c-755832bc8082
+# ╠═8acc08da-f932-4e67-b75c-755832bc8082
 # ╟─c921aa1e-3e5a-47f8-954b-9b1763e5e8c8
 # ╟─c9ea3314-2a7f-422f-ae9a-d025ada35cb8
 # ╟─9fea050c-bd5d-4abf-9abe-068c8327aef5
