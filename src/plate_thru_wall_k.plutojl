@@ -34,10 +34,24 @@ md"# KPTC Equations
 #### Stress Intensity
 - Plate
 - Through wall crack
-- Through-wall membrane and bending stress"
+- Through-wall membrane and bending stress
+
+ Crack and geometry dimensional limits: 0.0 < 𝑐 / 𝑊 < 1.0
+
+The membrane and bending stress, 𝜎𝑚 and 𝜎𝑏, can be determined using stress equations based on strength
+of materials concepts."
 
 # ╔═╡ 5b5c9203-909e-4142-aea3-f00bdde07af9
-md"### TODO add thru wall method"
+md"### Equation (9B.8)"
+
+# ╔═╡ a3fb4b39-035b-465d-847f-157ffe9b1b77
+md"### Equation (9B.9)"
+
+# ╔═╡ a32ab719-6d15-4a3e-95fa-8fdfc57f5675
+md"### Equation (9B.10)"
+
+# ╔═╡ bdaad3c5-9ad7-4a70-987b-203f0ffb38ac
+md"### Equation (9B.11)"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -50,10 +64,36 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ 7c99553d-e00b-4c9b-948f-7164948ee4ba
+remove_arguments(@latexrun K_I(σ_m, p_c, M_b, σ_b, c, f_w) = 
+	((σ_m + p_c) + M_b * σ_b) * sqrt(pi * c) * f_w
+				)
+
+# ╔═╡ 5ca2ee9b-05d0-464e-9199-5be3469d8529
+remove_arguments(@latexrun M_b(ψ) = 
+	(0.302327 + 70.50193 * ψ + 110.305 * ψ ^ 2) /
+		(1.0 + 110.96 * ψ + 98.7089 * ψ ^ 2 + 0.753594 * ψ ^ 3)
+				)
+
+# ╔═╡ 498bb5b4-3b3d-4368-89d8-0616edf13de1
+remove_arguments(@latexrun ψ(t, c) = t / (c * sqrt(10)) )
+
+# ╔═╡ 485534a4-d94f-4803-b776-4054725fa5b3
+remove_arguments(@latexrun f_w(c, W) =
+	(sec(pi * c / (2 * W))) ^ 0.5
+	)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
 # ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
-# ╠═5b5c9203-909e-4142-aea3-f00bdde07af9
+# ╟─5b5c9203-909e-4142-aea3-f00bdde07af9
+# ╟─7c99553d-e00b-4c9b-948f-7164948ee4ba
+# ╟─a3fb4b39-035b-465d-847f-157ffe9b1b77
+# ╟─5ca2ee9b-05d0-464e-9199-5be3469d8529
+# ╟─a32ab719-6d15-4a3e-95fa-8fdfc57f5675
+# ╟─498bb5b4-3b3d-4368-89d8-0616edf13de1
+# ╟─bdaad3c5-9ad7-4a70-987b-203f0ffb38ac
+# ╟─485534a4-d94f-4803-b776-4054725fa5b3
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
