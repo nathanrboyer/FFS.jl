@@ -37,13 +37,19 @@ md"# RPTC Equations
 - Through-wall membrane and bending stress"
 
 # ╔═╡ ec898847-88d6-4756-891e-1005b138c6f1
-md"### TODO"
-
-# ╔═╡ d6dfdc7a-6b04-4978-8124-953b328dbf37
-
+md"### Equation(9C.27)
+reference stress solution for Plate - Through-Wall Crack"
 
 # ╔═╡ 9c0055a5-e9c1-4777-944b-07dd99b9063b
+md"### Equation(9C.28)"
 
+# ╔═╡ d3aba118-6402-4cf9-a30f-12bbfe3fe800
+md"### 9C.3.1.2(b) -> Equation(9C.4)
+membrane stress"
+
+# ╔═╡ 7936a585-79f9-4d6f-b83c-c8cda0e10155
+md"### 9C.3.1.2(b) -> Equation(9C.5)
+bending stress"
 
 # ╔═╡ 70ca7500-e151-4692-9f2d-769495deca6c
 md"# Appendix"
@@ -56,12 +62,35 @@ function remove_arguments(s::LaTeXString)
     return LaTeXString(replace(s, r=>"", count=1))
 end
 
+# ╔═╡ d6dfdc7a-6b04-4978-8124-953b328dbf37
+remove_arguments(@latexrun σ_ref(P_b, P_m, α) =
+	(P_b + (P_b ^ 2 + 9 * P_m ^ 2) ^ 0.5) / (3 * (1 - α))
+				)
+
+# ╔═╡ 7883b00f-b6cc-4b2f-b770-d0b1eb76885a
+remove_arguments(@latexrun α(c, W) = c / W )
+
+# ╔═╡ 04a6b9ea-5fd0-4113-abca-94dee7fc2deb
+remove_arguments(@latexrun P_m(P_0, P_1, P_2, P_3, P_4) =
+	P_0 + P_1 / 2 + P_2 / 3 + P_3 / 4 + P_4 / 5
+				)
+
+# ╔═╡ 3af7c530-01fc-4bc8-b004-be39880bb7aa
+remove_arguments(@latexrun P_b(P_0, P_1, P_2, P_3, P_4) =
+	- P_1 / 2 - P_2 / 2 - 9 * P_3 / 20 - 6 * P_4 / 15
+				)
+
 # ╔═╡ Cell order:
 # ╟─d9e0d950-7c9c-11f1-9f8f-3b8538eebdbf
-# ╠═1545fde5-5475-4194-8fbe-12c9dcb54cc5
-# ╠═ec898847-88d6-4756-891e-1005b138c6f1
-# ╠═d6dfdc7a-6b04-4978-8124-953b328dbf37
-# ╠═9c0055a5-e9c1-4777-944b-07dd99b9063b
+# ╟─1545fde5-5475-4194-8fbe-12c9dcb54cc5
+# ╟─ec898847-88d6-4756-891e-1005b138c6f1
+# ╟─d6dfdc7a-6b04-4978-8124-953b328dbf37
+# ╟─9c0055a5-e9c1-4777-944b-07dd99b9063b
+# ╟─7883b00f-b6cc-4b2f-b770-d0b1eb76885a
+# ╟─d3aba118-6402-4cf9-a30f-12bbfe3fe800
+# ╟─04a6b9ea-5fd0-4113-abca-94dee7fc2deb
+# ╟─7936a585-79f9-4d6f-b83c-c8cda0e10155
+# ╟─3af7c530-01fc-4bc8-b004-be39880bb7aa
 # ╟─70ca7500-e151-4692-9f2d-769495deca6c
 # ╟─e5f09f60-572f-4c13-946b-bea499f29249
 # ╟─a5c0677f-5bdc-41fc-8a95-2dd96f960186
