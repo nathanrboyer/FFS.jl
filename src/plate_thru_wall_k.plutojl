@@ -26,7 +26,7 @@ end
 md"""
 ### Verification
 These equations last verified to API 579-1/ASME FFS-1 2021 Edition and ASME BPVC 2025 Edition.
-- *Verified compatible with BPVC 2025 Edition: Maxwell Frame -- 07/13/2026*
+- *Verified compatible with BPVC 2025 Edition: Maxwell Frame -- 07/17/2026*
 """
 
 # ╔═╡ 1545fde5-5475-4194-8fbe-12c9dcb54cc5
