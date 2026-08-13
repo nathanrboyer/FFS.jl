@@ -1,6 +1,6 @@
 name = "FFS"
 uuid = "2ece0448-1788-465a-aec3-f947ab6c84dd"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
     "Nathan Boyer <nathanrobertboyer@gmail.com>",
     "Maxwell Frame <mframe@aiphip.com>",
