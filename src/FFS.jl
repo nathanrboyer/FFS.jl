@@ -7,8 +7,8 @@ This package is intended to be used as a dependency of other data processing pac
 Equations are organized into modules named by their source location in FFS-1.
 """
 module FFS
-export Part9, RCSCLE3, RCSCCE1, RCSCCL3, WFMFSC, KPTC, RPTC
-export RPSCE, RPSCL, KPSCE3
+# export Part9, RCSCLE3, RCSCCE1, RCSCCL3, WFMFSC, KPTC, RPTC
+# export RPSCE, RPSCL, KPSCE3
 
 using Interpolations, XLSX, DataFrames, CSV
 
